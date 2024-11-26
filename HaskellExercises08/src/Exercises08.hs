@@ -98,14 +98,13 @@ multSNat n0 n1 =
   let
     addNat (Succ n) m = addNat n (Succ m)
     addNat Zero m     =  m
-
     multNat (Succ n) m = addNat m (multNat n m)
     multNat Zero m     = Zero
   in case (n0,n1) of
-       (Positive x, Positive y) -> error "TODO: implement multSNat"
-       (Negative x, Negative y) -> error "TODO: implement multSNat"
-       (Negative x, Positive y) -> error "TODO: implement multSNat"
-       (Positive x, Negative y) -> error "TODO: implement multSNat"
+       (Positive x, Positive y) -> Positive $ multNat x y
+       (Negative x, Negative y) -> Positive $ multNat x y
+       (Negative x, Positive y) -> Negative $ multNat x y
+       (Positive x, Negative y) -> Negative $ multNat x y
 
 -- Exercise D
 -----------------------------------------------------------------------------------------------------------

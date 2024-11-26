@@ -75,19 +75,19 @@ intToSNat n
 addSNat :: Signed Nat -> Signed Nat -> Signed Nat
 addSNat (Positive x) (Positive y) =
   case (x,y) of
-    (Succ n,m) -> 1 + addSNat (Positive n-1) (Positive m-1)
+    (Succ n,m) -> addSNat (Positive n) (Positive $ Succ m)
     (Zero,m)   -> Positive m
 addSNat (Positive x) (Negative y) =
   case (x,y) of
-    (Succ n,Succ m) -> error "TODO: implement addSNat"
-    (Succ n,Zero)   -> error "TODO: implement addSNat"
+    (Succ n,Succ m) -> addSNat (Positive n) (Negative m)
+    (Succ n,Zero)   -> Positive x
     (Zero,m)        -> Negative m
-addSNat (Negative x) (Positive y) = error "TODO: implement addSNat"
+addSNat (Negative x) (Positive y) = addSNat (Positive y) (Negative x)
 addSNat (Negative x) (Negative y) =
   case (x,y) of
-    (Succ n,m) -> error "TODO: implement addSNat"
-    (Zero,m)   -> error "TODO: implement addSNat"
-
+    (Succ n,m) -> addSNat (Negative n) (Negative $ Succ m)
+    (Zero,m)   -> Negative m
+  
 -- Exercise C
 -----------------------------------------------------------------------------------------------------------
 -- Implement the function multSNat that multiples two signed numbers

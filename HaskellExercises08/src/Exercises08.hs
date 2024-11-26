@@ -110,10 +110,15 @@ multSNat n0 n1 =
 -----------------------------------------------------------------------------------------------------------
 -- Implement the function absSNat that returns the absolute value of a signed number
 -----------------------------------------------------------------------------------------------------------
-absSNat n = error "TODO: implement absSNat"
-
+absSNat n = 
+  case n of
+    Positive x -> n
+    Negative x -> Positive x
 -- Exercise E
 -----------------------------------------------------------------------------------------------------------
 -- Implement the function negateSNat that returns the negation (i.e. flips the sign) of a signed number
 -----------------------------------------------------------------------------------------------------------
-negateSNat n = error "TODO: implement negateSNat"
+negateSNat n = 
+  case n of
+    Positive x -> Negative x
+    Negative x -> Positive x

@@ -48,8 +48,14 @@ instance Num (Signed Nat) where
 -- NOTE these two functions will be tested together
 -----------------------------------------------------------------------------------------------------------
 sNatToInt :: Signed Nat -> Integer
-sNatToInt (Positive n) = error "TODO: implement sNatToInt"
-sNatToInt (Negative n) = error "TODO: implement sNatToInt"
+sNatToInt (Positive n) = 
+  case n of
+    Zero   -> 0
+    Succ x -> 1 + sNatToInt (Positive x)
+sNatToInt (Negative n) = 
+  case n of
+    Zero   -> 0
+    Succ x -> -1 + sNatToInt (Negative x)
 
 intToSNat :: Integer -> Signed Nat
 intToSNat n

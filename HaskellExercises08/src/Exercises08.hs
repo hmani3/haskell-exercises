@@ -59,9 +59,9 @@ sNatToInt (Negative n) =
 
 intToSNat :: Integer -> Signed Nat
 intToSNat n
-  | n == 0     = error "TODO: implement intToSNat"
-  | n < 0      = error "TODO: implement intToSNat"
-  | otherwise  = error "TODO: implement intToSNat"
+  | n == 0     = Positive Zero
+  | n < 0      = Negative $ Succ $ unwrapSign $ intToSNat (n+1)
+  | otherwise  = Positive $ Succ $ unwrapSign $ intToSNat (n-1)
   where
     unwrapSign :: Signed Nat -> Nat
     unwrapSign (Positive n) = n
@@ -75,13 +75,13 @@ intToSNat n
 addSNat :: Signed Nat -> Signed Nat -> Signed Nat
 addSNat (Positive x) (Positive y) =
   case (x,y) of
-    (Succ n,m) -> error "TODO: implement addSNat"
-    (Zero,m) -> error "TODO: implement addSNat"
+    (Succ n,m) -> 1 + addSNat (Positive n-1) (Positive m-1)
+    (Zero,m)   -> Positive m
 addSNat (Positive x) (Negative y) =
   case (x,y) of
     (Succ n,Succ m) -> error "TODO: implement addSNat"
     (Succ n,Zero)   -> error "TODO: implement addSNat"
-    (Zero,m)        -> error "TODO: implement addSNat"
+    (Zero,m)        -> Negative m
 addSNat (Negative x) (Positive y) = error "TODO: implement addSNat"
 addSNat (Negative x) (Negative y) =
   case (x,y) of
